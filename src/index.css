@@ -1,0 +1,316 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&family=Pixelify+Sans:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --bg: #150a26;
+    --fg: #e8d6ff;
+    --muted: #a888c8;
+    --accent: #05d9e8;
+    --pink: #ff71ce;
+    --purple: #b16eff;
+    --card: #201536;
+    --border: #3a2a5e;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: 'Pixelify Sans', 'VT323', monospace;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  #root {
+    min-height: 100vh;
+    width: 100%;
+  }
+
+  /* Selection styles */
+  ::selection {
+    background: rgba(255, 113, 206, 0.35);
+    color: #fff;
+  }
+
+  /* Focus styles */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border: 3px solid var(--bg);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--pink);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: var(--bg);
+  }
+}
+
+@layer components {
+  /* Pixel Button */
+  .btn-pixel {
+    @apply relative px-6 py-3 font-pixel text-xs uppercase tracking-wider
+           bg-pixel-card border-2 border-pixel-border text-pixel-text
+           hover:bg-pixel-border hover:shadow-pixel
+           active:translate-x-[2px] active:translate-y-[2px] active:shadow-none
+           transition-all duration-100 ease-out
+           focus:outline-none focus-visible:ring-2 focus-visible:ring-pixel-accent focus-visible:ring-offset-2 focus-visible:ring-offset-pixel-bg;
+  }
+
+  .btn-pixel-primary {
+    @apply btn-pixel bg-vw-blue text-pixel-bg hover:bg-cyan-300
+           shadow-glow-cyan hover:shadow-glow-cyan;
+  }
+
+  .btn-pixel-gold {
+    @apply btn-pixel bg-vw-sun text-pixel-text hover:bg-vw-sun2
+           shadow-glow-pink hover:shadow-glow-pink;
+  }
+
+  .btn-pixel-red {
+    @apply btn-pixel bg-vw-pink text-pixel-text hover:bg-pink-500
+           shadow-glow-pink hover:shadow-glow-pink;
+  }
+
+  .btn-pixel-ghost {
+    @apply btn-pixel bg-transparent border-pixel-border hover:bg-pixel-border;
+  }
+
+  /* Pixel Card */
+  .card-pixel {
+    @apply relative bg-pixel-card border-2 border-pixel-border p-6
+           shadow-pixel transition-all duration-200
+           hover:shadow-pixel-lg hover:-translate-y-1 hover:-translate-x-1;
+  }
+
+  .card-pixel-lg {
+    @apply card-pixel p-8 shadow-pixel-lg;
+  }
+
+  /* Vaporwave panel with neon inset frame */
+  .panel-vw {
+    @apply relative bg-vw-panel border-2 border-vw-pink/60 shadow-vw-inset;
+  }
+
+  /* Pixel Input */
+  .input-pixel {
+    @apply w-full px-4 py-3 font-mono text-sm
+           bg-pixel-bg border-2 border-pixel-border text-pixel-text
+           placeholder:text-pixel-text-dim
+           focus:outline-none focus:border-pixel-accent focus:shadow-glow-cyan
+           transition-all duration-150;
+  }
+
+  /* Scanlines overlay.
+     Слой на 8px выше экрана, анимация translateY на 4px (= период паттерна)
+     зацикливается бесшовно и работает на GPU без перерисовки. */
+  .scanlines {
+    @apply fixed inset-0 pointer-events-none z-50 opacity-30
+           bg-scanlines animate-scanlines;
+    top: -4px;
+    bottom: -4px;
+    will-change: transform;
+  }
+
+  .crt-overlay {
+    @apply fixed inset-0 pointer-events-none z-40 opacity-10
+           bg-crt-noise;
+  }
+
+  .vignette {
+    @apply fixed inset-0 pointer-events-none z-30;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.5) 100%);
+  }
+
+  /* Section container */
+  .section-container {
+    @apply relative px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32
+           max-w-7xl mx-auto;
+  }
+
+  /* Section title */
+  .section-title {
+    @apply font-pixel text-2xl md:text-3xl lg:text-4xl uppercase tracking-wider
+           text-center mb-12 relative;
+  }
+
+  .section-title::before,
+  .section-title::after {
+    @apply content-[''] absolute top-1/2 w-24 h-px bg-pixel-border;
+  }
+
+  .section-title::before {
+    @apply left-0 -translate-y-1/2 -ml-8;
+  }
+
+  .section-title::after {
+    @apply right-0 -translate-y-1/2 -mr-8;
+  }
+
+  /* Neon gradient text */
+  .text-gradient-cyan {
+    @apply bg-gradient-to-r from-vw-blue to-cyan-300 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-gold {
+    @apply bg-gradient-to-r from-vw-sun to-vw-sun2 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-red {
+    @apply bg-gradient-to-r from-vw-pink to-pink-400 bg-clip-text text-transparent;
+  }
+
+  .text-gradient-vw {
+    @apply bg-gradient-to-r from-vw-pink via-vw-blue to-vw-purple bg-clip-text text-transparent;
+  }
+
+  /* Achievement toast */
+  .toast-achievement {
+    @apply fixed bottom-6 right-6 z-50 flex items-center gap-4
+           bg-pixel-card border-2 border-pixel-border px-6 py-4
+           shadow-pixel-lg animate-slide-up
+           transform transition-all duration-300;
+  }
+
+  /* Lightbox */
+  .lightbox-overlay {
+    @apply fixed inset-0 z-50 flex items-center justify-center
+           bg-black/90 backdrop-blur-sm;
+  }
+
+  .lightbox-content {
+    @apply relative max-w-4xl max-h-[90vh] w-full;
+  }
+
+  .lightbox-image {
+    @apply max-w-full max-h-[80vh] object-contain
+           border-4 border-vw-pink/60 shadow-vw-inset;
+  }
+
+  /* Music player visualizer bar */
+  .visualizer-bar {
+    @apply w-1 bg-pixel-accent rounded-t transition-all duration-75
+           origin-bottom transform-gpu;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .animate-in {
+    animation: slideUp 0.5s ease-out forwards;
+  }
+
+  .animate-in-delay-1 { animation-delay: 100ms; }
+  .animate-in-delay-2 { animation-delay: 200ms; }
+  .animate-in-delay-3 { animation-delay: 300ms; }
+  .animate-in-delay-4 { animation-delay: 400ms; }
+  .animate-in-delay-5 { animation-delay: 500ms; }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-gpu {
+    transform: translateZ(0);
+  }
+
+  .bg-gradient-radial {
+    background: radial-gradient(ellipse at center, var(--tw-gradient-from), var(--tw-gradient-to));
+  }
+}
+
+/* Keyframes for utilities not in Tailwind */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes rotateIn {
+  from {
+    opacity: 0;
+    transform: rotate(-5deg) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: rotate(0) scale(1);
+  }
+}
+
+@keyframes bouncePixel {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
