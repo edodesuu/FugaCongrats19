@@ -14,7 +14,7 @@
   },
   "description": "FugaCongrats19 - personal congratulations website for Fuga",
   "author": "mikam",
-  "main": "index.js",
+  "main": "index.cjs",
   "dependencies": {
     "clsx": "^2.1.1",
     "framer-motion": "^13.1.1",
