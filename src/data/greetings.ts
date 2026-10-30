@@ -38,9 +38,9 @@ export const surpriseGame: SurpriseGameConfig = {
   introEmoji: '🎁',
   duration: 30,
   winMessage: 'Желаю никогда не встречать таких типов! 💅',
-  exImage: '/mini-game/ex.webp',
+  exImage: 'mini-game/ex.webp',
   goodText: 'А вот таких бы побольше)',
-  goodImage: '/mini-game/kain.webp',
+  goodImage: 'mini-game/kain.webp',
 };
 
 // === Личное длинное поздравление — из context/wishes.txt ===
